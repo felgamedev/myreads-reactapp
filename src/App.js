@@ -10,9 +10,13 @@ class BooksApp extends React.Component {
   }
 
   componentWillMount(){
+    let booksFromAPI = []
     BooksAPI.getAll()
     .then(allBooks => {
-      this.setState({allBooks})
+      for(let bookIndex in allBooks){
+        booksFromAPI.push(allBooks[bookIndex])
+      }
+      this.setState({allBooks: booksFromAPI})
     })
   }
 
