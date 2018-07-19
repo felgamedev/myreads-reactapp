@@ -5,7 +5,11 @@ import Bookshelf from './components/Bookshelf'
 
 class BooksApp extends React.Component {
   state = {
-    bookshelves: ["currentlyReading", "wantToRead", "read"],
+    bookshelves: [
+      {"shelf": "currentlyReading", "displayName":"Currently Reading"},
+      {"shelf": "wantToRead", "displayName":"Want to read"},
+      {"shelf": "read", "displayName":"Read"}
+    ],
     allBooks: []
   }
 
@@ -30,7 +34,7 @@ class BooksApp extends React.Component {
         {allBooks !== null && (
           <div className="list-books-content">
             {bookshelves.map(bshelf => (
-            <Bookshelf key={bshelf} books={allBooks.filter(book => book.shelf === bshelf)}/>
+            <Bookshelf key={bshelf.shelf} shelf={bshelf.shelf} shelfName={bshelf.displayName} books={allBooks.filter(book => book.shelf === bshelf.shelf) }/>
           ))}
           </div>
         )}
