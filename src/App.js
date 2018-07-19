@@ -17,15 +17,20 @@ class BooksApp extends React.Component {
   }
 
   render() {
-
+    let { bookshelves, allBooks } = this.state
     return (
       <div className="app">
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
-        <div className="list-books-content">
-          <Bookshelf />
-        </div>
+        {allBooks !== null && (
+          <div className="list-books-content">
+            {bookshelves.map(bshelf => (
+            <Bookshelf key={bshelf} books={allBooks.filter(book => book.shelf === bshelf)}/>
+          ))}
+          </div>
+        )}
+
       </div>
     )
   }
