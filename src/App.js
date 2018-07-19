@@ -5,8 +5,8 @@ import Bookshelf from './components/Bookshelf'
 
 class BooksApp extends React.Component {
   state = {
-    bookshelves: [ "read", "wantToRead", "currentlyReading"],
-    allBooks: {}
+    bookshelves: ["currentlyReading", "wantToRead", "read"],
+    allBooks: []
   }
 
   componentWillMount(){
