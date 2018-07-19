@@ -4,7 +4,10 @@ class Bookshelf extends Component {
 
   render(){
     return (
-      <h2>I am a bookshelf!</h2>
+      <div className="bookshelf">
+        <h2 className="bookshelf-title">{this.props.shelfName}</h2>
+        <p>I have {this.props.books.length} books</p>
+      </div>
     )
   }
 }
