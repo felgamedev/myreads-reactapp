@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Book from './Book'
 
 class Bookshelf extends Component {
 
@@ -6,7 +7,13 @@ class Bookshelf extends Component {
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.shelfName}</h2>
-        <p>I have {this.props.books.length} books</p>
+        <div className="bookshelf-books">
+          <ol className="books-grid">
+          {this.props.books.map(book => (
+            <Book key={book.id} book={book}/>
+            ))}
+            </ol>
+        </div>
       </div>
     )
   }
