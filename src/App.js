@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Bookcase from './components/Bookcase'
+import Bookshelf from './components/Bookshelf'
 
 class BooksApp extends React.Component {
   state = {
@@ -25,13 +25,28 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBook = (book, shelf) => {
+
+  }
+
   render() {
     let { bookshelves, allBooks } = this.state
     return (
       <div className="app">
         <Route exact path="/" render={props => (
-          <Bookcase bookShelves={bookshelves} allBooks={allBooks}/>
-        )}/>
+          <div>
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            {allBooks !== null && (
+              <div className="list-books-content">
+                {bookshelves.map(bshelf => (
+                  <Bookshelf key={bshelf.shelf} shelf={bshelf.shelf} shelfName={bshelf.displayName} books={allBooks.filter(book => book.shelf === bshelf.shelf)} onUpdateBook={this.onUpdateBook}/>
+                ))}
+              </div>)
+            }
+          </div>)
+        }/>
       </div>
     )
   }
