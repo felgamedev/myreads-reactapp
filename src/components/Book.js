@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 class Book extends Component {
 
   onChangeShelf = (e) => {
-    this.props.onChangeShelf(this.props.book, e.target.value)
+    console.log("Click!");
+    this.props.onUpdateBook(this.props.book, e.target.value)
   }
 
   render(){
@@ -14,6 +15,7 @@ class Book extends Component {
           <div className="book-top">
             <div className="book-cover" style={{width: 128, height: 188, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
             <div className="book-shelf-changer">
+              {/* Only present options that are needed, leave out current shelf */}
               <select onChange={this.onChangeShelf}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
