@@ -26,7 +26,7 @@ class BooksApp extends React.Component {
   }
 
   updateBook = (book, shelf) => {
-
+    console.log(`${book.title} wants to move from ${book.shelf} to ${shelf}`);
   }
 
   render() {
@@ -41,7 +41,7 @@ class BooksApp extends React.Component {
             {allBooks !== null && (
               <div className="list-books-content">
                 {bookshelves.map(bshelf => (
-                  <Bookshelf key={bshelf.shelf} shelf={bshelf.shelf} shelfName={bshelf.displayName} books={allBooks.filter(book => book.shelf === bshelf.shelf)} onUpdateBook={this.onUpdateBook}/>
+                  <Bookshelf key={bshelf.shelf} shelf={bshelf.shelf} shelfName={bshelf.displayName} books={allBooks.filter(book => book.shelf === bshelf.shelf)} onUpdateBook={this.updateBook}/>
                 ))}
               </div>)
             }
