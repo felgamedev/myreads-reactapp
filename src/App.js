@@ -14,19 +14,37 @@ class BooksApp extends React.Component {
     allBooks: []
   }
 
+
   componentWillMount(){
-    let booksFromAPI = []
-    BooksAPI.getAll()
-    .then(allBooks => {
-      for(let bookIndex in allBooks){
-        booksFromAPI.push(allBooks[bookIndex])
-      }
-      this.setState({allBooks: booksFromAPI})
-    })
+    this.getAllBooks()
   }
 
   updateBook = (book, shelf) => {
-    console.log(`${book.title} wants to move from ${book.shelf} to ${shelf}`);
+    BooksAPI.update(book, shelf)
+
+    let newBookcase = this.state.allBooks.filter(oldBook => oldBook.title !== book.title)
+    book.shelf = shelf
+    newBookcase.push(book)
+
+    this.setState({
+      allBooks: newBookcase
+    })
+  }
+
+  getAllBooks(){
+    BooksAPI.getAll()
+    .then(allBooks => this.saveToState(allBooks))
+  }
+
+  saveToState(jsonData){
+    let array = []
+    for(let book in jsonData){
+      array.push(jsonData[book])
+    }
+
+    this.setState({
+      allBooks: array
+    })
   }
 
   render() {
