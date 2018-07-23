@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './components/Bookshelf'
+import Search from './components/Search'
 
 class BooksApp extends React.Component {
   state = {
@@ -11,7 +12,8 @@ class BooksApp extends React.Component {
       {"shelf": "wantToRead", "displayName":"Want to read"},
       {"shelf": "read", "displayName":"Read"}
     ],
-    allBooks: []
+    allBooks: [],
+    searchQueryResults: []
   }
 
 
@@ -33,22 +35,33 @@ class BooksApp extends React.Component {
 
   getAllBooks(){
     BooksAPI.getAll()
-    .then(allBooks => this.saveToState(allBooks))
+    .then(allBooks => this.saveToState(allBooks, "allBooks"))
   }
 
-  saveToState(jsonData){
+  saveToState(jsonData, stateVariable){
     let array = []
     for(let book in jsonData){
       array.push(jsonData[book])
     }
+    if(stateVariable === "allBooks"){
+      this.setState({
+        allBooks: array
+      })
+    } else if(stateVariable === "searchQuery"){
+      this.setState({
+        searchQuery: array
+      })
+    }
 
-    this.setState({
-      allBooks: array
-    })
+  }
+
+  searchForBooks(query){
+    BooksAPI.search()
+    .then(searchQueryResults => this.saveToState(searchQueryResults, "searchQuery"))
   }
 
   render() {
-    let { bookshelves, allBooks } = this.state
+    let { bookshelves, allBooks, searchQueryResults } = this.state
     return (
       <div className="app">
         <Route exact path="/" render={props => (
@@ -65,6 +78,10 @@ class BooksApp extends React.Component {
             }
           </div>)
         }/>
+
+        <Route exact path="/search/" render={props => (
+          <Search searchQueryResults={searchQueryResults} />
+        )} />
       </div>
     )
   }
