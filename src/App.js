@@ -49,15 +49,23 @@ class BooksApp extends React.Component {
       })
     } else if(stateVariable === "searchQuery"){
       this.setState({
-        searchQuery: array
+        searchQueryResults: array
       })
     }
-
   }
 
   searchForBooks(query){
-    BooksAPI.search()
+    BooksAPI.search(query)
     .then(searchQueryResults => this.saveToState(searchQueryResults, "searchQuery"))
+  }
+
+  onSearch = (query) => {
+    if(query !== "")
+      this.searchForBooks(query)
+    else
+      this.setState({
+        searchQueryResults: []
+      })
   }
 
   render() {
@@ -80,7 +88,7 @@ class BooksApp extends React.Component {
         }/>
 
         <Route exact path="/search/" render={props => (
-          <Search searchQueryResults={searchQueryResults} />
+          <Search searchQueryResults={searchQueryResults} onSearch={this.onSearch} onUpdateBook={this.updateBook}/>
         )} />
       </div>
     )

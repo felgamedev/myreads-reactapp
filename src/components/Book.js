@@ -10,11 +10,12 @@ class Book extends Component {
   render(){
     let { book } = this.props
     let { shelf } = book
+    {console.log(book)}
     return (
       <li>
         <div className="book" key={book.id}>
           <div className="book-top">
-            <div className="book-cover" style={{width: 128, height: 188, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
+            <div className="book-cover" style={{width: 128, height: 188, backgroundImage: `url(${book.imageLinks != null && book.imageLinks.thumbnail})`}}></div>
             <div className="book-shelf-changer">
               {/* Only present options that are needed, leave out current shelf */}
               <select onChange={this.onChangeShelf}>
@@ -27,7 +28,7 @@ class Book extends Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors.join(', ')}</div>
+          <div className="book-authors">{book.authors != null && book.authors.join(', ')}</div>
         </div>
       </li>
     )
