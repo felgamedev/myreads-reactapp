@@ -38,7 +38,6 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {console.log(this.props.searchQueryResults)}
             {this.props.searchQueryResults[0] !== "empty query" && this.props.searchQueryResults.map(book => (<Book book={book} onUpdateBook={this.onUpdateBook}/>))}
           </ol>
         </div>

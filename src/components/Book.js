@@ -10,7 +10,6 @@ class Book extends Component {
   render(){
     let { book } = this.props
     let { shelf } = book
-    {console.log(book)}
     return (
       <li>
         <div className="book" key={book.id}>
