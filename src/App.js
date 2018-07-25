@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './components/Bookshelf'
@@ -90,6 +90,10 @@ class BooksApp extends React.Component {
         <Route exact path="/search/" render={props => (
           <Search searchQueryResults={searchQueryResults} onSearch={this.onSearch} onUpdateBook={this.updateBook}/>
         )} />
+
+        <div className="open-search">
+          <Link to="/search">Add a book</Link>
+        </div>
       </div>
     )
   }
