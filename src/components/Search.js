@@ -38,7 +38,7 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.props.searchQueryResults[0] !== "empty query" && this.props.searchQueryResults.map(book => (<Book book={book} onUpdateBook={this.onUpdateBook}/>))}
+            {this.props.searchQueryResults[0] !== "empty query" && this.props.searchQueryResults.map(book => (<Book key={book.id} book={book} onUpdateBook={this.onUpdateBook}/>))}
           </ol>
         </div>
       </div>
