@@ -4,6 +4,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './components/Bookshelf'
 import Search from './components/Search'
+import DetailModal from './components/DetailModal'
 
 class BooksApp extends React.Component {
   state = {
@@ -13,7 +14,8 @@ class BooksApp extends React.Component {
       {"shelf": "read", "displayName":"Read"}
     ],
     allBooks: [],
-    searchQueryResults: []
+    searchQueryResults: [],
+    detailPanelOpen: true
   }
 
 
@@ -68,8 +70,14 @@ class BooksApp extends React.Component {
       })
   }
 
+  openDetailPanel = (book) => {
+
+  }
+
+  closeDetailPanel = () => {}
+
   render() {
-    let { bookshelves, allBooks, searchQueryResults } = this.state
+    let { bookshelves, allBooks, searchQueryResults, detailPanelOpen } = this.state
     return (
       <div className="app">
         <Route exact path="/" render={props => (
@@ -82,6 +90,7 @@ class BooksApp extends React.Component {
                 {bookshelves.map(bshelf => (
                   <Bookshelf key={bshelf.shelf} shelf={bshelf.shelf} shelfName={bshelf.displayName} books={allBooks.filter(book => book.shelf === bshelf.shelf)} onUpdateBook={this.updateBook}/>
                 ))}
+                {detailPanelOpen && (<DetailModal />)}
               </div>)
             }
           </div>)
