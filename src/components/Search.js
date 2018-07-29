@@ -11,8 +11,8 @@ class Search extends Component {
     this.setState({
       query: value
     })
-
-    this.props.onSearch(this.state.query)
+    // Search using value since setState may not be completed before this function is called
+    this.props.onSearch(value)
   }
 
   onUpdateBook = (book, shelf) => {this.props.onUpdateBook(book, shelf)}
@@ -38,7 +38,7 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.props.searchQueryResults[0] !== "empty query" && this.props.searchQueryResults.map(book => (<Book key={book.id} book={book} onUpdateBook={this.onUpdateBook}/>))}
+            {this.props.searchQueryResults[0] !== "empty query" && this.props.searchQueryResults.map(book => (<Book key={book.id} book={book} onUpdateBook={this.onUpdateBook} openDetailPanel={this.props.openDetailPanel}/>))}
           </ol>
         </div>
       </div>

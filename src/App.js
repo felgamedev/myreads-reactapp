@@ -102,7 +102,10 @@ class BooksApp extends React.Component {
         }/>
 
         <Route exact path="/search/" render={props => (
-          <Search searchQueryResults={searchQueryResults} onSearch={this.onSearch} onUpdateBook={this.updateBook}/>
+          <div>
+            <Search searchQueryResults={searchQueryResults} onSearch={this.onSearch} onUpdateBook={this.updateBook} openDetailPanel={this.openDetailPanel}/>
+            {bookDetail && (<DetailModal book={this.state.bookDetail} closeDetailPanel={this.closeDetailPanel} onChangeShelf={this.updateBook}/>)}
+          </div>
         )} />
 
         <div className="open-search">
