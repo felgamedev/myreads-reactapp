@@ -99,6 +99,9 @@ class BooksApp extends React.Component {
                 {bookDetail && (<DetailModal book={this.state.bookDetail} closeDetailPanel={this.closeDetailPanel} onChangeShelf={this.updateBook}/>)}
               </div>)
             }
+            <div className="open-search">
+              <Link to="/search">Add a book</Link>
+            </div>
           </div>)
         }/>
 
@@ -109,9 +112,7 @@ class BooksApp extends React.Component {
           </div>
         )} />
 
-        <div className="open-search">
-          <Link to="/search">Add a book</Link>
-        </div>
+
       </div>
     )
   }
