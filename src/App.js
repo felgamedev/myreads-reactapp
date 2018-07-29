@@ -61,12 +61,13 @@ class BooksApp extends React.Component {
   }
 
   onSearch = (query) => {
-    if(query !== "")
-      this.searchForBooks(query)
-    else
+    if(query === ""){
       this.setState({
         searchQueryResults: []
       })
+    } else {
+      this.searchForBooks(query)
+    }
   }
 
   openDetailPanel = (book) => {
