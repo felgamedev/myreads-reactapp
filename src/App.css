@@ -10,12 +10,12 @@ body, .app {
 
 /* main page */
 
-.list-books-title {
+.list-books-title, .modal-book-title {
   padding: 10px 0;
   background: #2e7c31;
   text-align: center;
 }
-.list-books-title h1 {
+.list-books-title h1, .modal-book-title {
   font-weight: 400;
   margin: 0;
   color: white;
@@ -129,6 +129,12 @@ body, .app {
 .book-title {
   margin-top: 10px;
 }
+
+.book-cover:hover,
+.book-title:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .book-authors {
   color: #999;
 }
@@ -180,13 +186,15 @@ body, .app {
   width: 640px;
   max-width: 100%;
 
-  hieght: 480px;
+  height: 480px;
   max-height: 100%;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1001;
+
+  padding: 2em;
 }
 
 .modal-overlay {
@@ -198,4 +206,20 @@ body, .app {
   height: 100%;
 
   background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-book-description {
+  font: 'Roboto' 0.5em darkGrey;
+  line-height: normal;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.modal-close {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2em;
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-right: 0.8em;
 }
