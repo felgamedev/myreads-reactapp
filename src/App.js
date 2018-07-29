@@ -88,7 +88,7 @@ class BooksApp extends React.Component {
             {allBooks !== null && (
               <div className="list-books-content">
                 {bookshelves.map(bshelf => (
-                  <Bookshelf key={bshelf.shelf} shelf={bshelf.shelf} shelfName={bshelf.displayName} books={allBooks.filter(book => book.shelf === bshelf.shelf)} onUpdateBook={this.updateBook}/>
+                  <Bookshelf key={bshelf.shelf} shelf={bshelf.shelf} shelfName={bshelf.displayName} books={allBooks.filter(book => book.shelf === bshelf.shelf)} onUpdateBook={this.updateBook} openDetailPanel={this.openDetailPanel}/>
                 ))}
                 {detailPanelOpen && (<DetailModal />)}
               </div>)

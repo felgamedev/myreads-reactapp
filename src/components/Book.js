@@ -7,6 +7,10 @@ class Book extends Component {
     this.props.onUpdateBook(this.props.book, e.target.value)
   }
 
+  openDetailPanel = (e) => {
+    this.props.openDetailPanel(this.props.book)
+  }
+
   render(){
     let { book } = this.props
     let { shelf } = book
@@ -14,7 +18,7 @@ class Book extends Component {
       <li>
         <div className="book" key={book.id}>
           <div className="book-top">
-            <div className="book-cover" style={{width: 128, height: 188, backgroundImage: `url(${book.imageLinks != null && book.imageLinks.thumbnail})`}}></div>
+            <div className="book-cover" style={{width: 128, height: 188, backgroundImage: `url(${book.imageLinks != null && book.imageLinks.thumbnail})`}} onClick={this.openDetailPanel}></div>
             <div className="book-shelf-changer">
               {/* Only present options that are needed, leave out current shelf */}
               <select onChange={this.onChangeShelf}>
