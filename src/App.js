@@ -15,9 +15,8 @@ class BooksApp extends React.Component {
     ],
     allBooks: [],
     searchQueryResults: [],
-    detailPanelOpen: true
+    bookDetail: null
   }
-
 
   componentWillMount(){
     this.getAllBooks()
@@ -71,13 +70,19 @@ class BooksApp extends React.Component {
   }
 
   openDetailPanel = (book) => {
-
+    this.setState({
+      bookDetail: book
+    })
   }
 
-  closeDetailPanel = () => {}
+  closeDetailPanel = () => {
+    this.setState({
+      bookDetail: null
+    })
+  }
 
   render() {
-    let { bookshelves, allBooks, searchQueryResults, detailPanelOpen } = this.state
+    let { bookshelves, allBooks, searchQueryResults, bookDetail } = this.state
     return (
       <div className="app">
         <Route exact path="/" render={props => (
@@ -90,7 +95,7 @@ class BooksApp extends React.Component {
                 {bookshelves.map(bshelf => (
                   <Bookshelf key={bshelf.shelf} shelf={bshelf.shelf} shelfName={bshelf.displayName} books={allBooks.filter(book => book.shelf === bshelf.shelf)} onUpdateBook={this.updateBook} openDetailPanel={this.openDetailPanel}/>
                 ))}
-                {detailPanelOpen && (<DetailModal />)}
+                {bookDetail && (<DetailModal book={this.state.bookDetail} closeDetailPanel={this.closeDetailPanel} onChangeShelf={this.updateBook}/>)}
               </div>)
             }
           </div>)
