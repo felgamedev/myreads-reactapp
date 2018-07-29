@@ -30,19 +30,19 @@ class Book extends Component {
             <div className="book-shelf-changer">
               {/* Only present options that are needed, leave out current shelf */}
               <select onChange={this.onChangeShelf}>
-                <option value="move" disabled defaultValue>
+                <option value="move" disabled>
                   Move to...
                 </option>
                 <option
                   value="currentlyReading"
-                  disabled={shelf === "currentlyReading"}
+                  selected={shelf === "currentlyReading"}
                 >
                   Currently Reading
                 </option>
-                <option value="wantToRead" disabled={shelf === "wantToRead"}>
+                <option value="wantToRead" selected={shelf === "wantToRead"}>
                   Want to Read
                 </option>
-                <option value="read" disabled={shelf === "read"}>
+                <option value="read" selected={shelf === "read"}>
                   Read
                 </option>
                 <option value="none">None</option>
