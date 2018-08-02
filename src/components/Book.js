@@ -33,7 +33,7 @@ const Book = ({book, openDetailPanel, onUpdateBook}) => {
                 <option value="read" selected={book.shelf === "read"}>
                   Read
                 </option>
-                <option value="none">None</option>
+                <option value="none" selected={book.shelf === undefined || book.shelf === "none" || book.shelf === ""}>None</option>
               </select>
             </div>
           </div>
