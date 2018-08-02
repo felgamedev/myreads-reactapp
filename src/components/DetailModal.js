@@ -1,22 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-class DetailModal extends Component {
-  closeDetailPanel = e => {
-    this.props.closeDetailPanel();
-  };
-
-  onChangeShelf = e => {
-    this.props.onChangeShelf(this.props.book, e.target.value);
-  };
-
-  render() {
-    let { book } = this.props;
-    let { shelf } = book;
+const DetailModal = ({book, closeDetailPanel, onChangeShelf}) => {
     return (
       <div>
-        <div className="modal-overlay" onClick={this.closeDetailPanel} />
+        <div className="modal-overlay" onClick={(e) => closeDetailPanel()} />
         <div className="modal">
-          <span className="modal-close" onClick={this.closeDetailPanel}>
+          <span className="modal-close" onClick={(e) => closeDetailPanel()}>
             x
           </span>
           <div className="modal-book-title">
@@ -40,20 +29,20 @@ class DetailModal extends Component {
 
           <div className="book-shelf-changer">
             {/* Only present options that are needed, leave out current shelf */}
-            <select onChange={this.onChangeShelf}>
-              <option value="move" disabled selected>
+            <select onChange={(e) => onChangeShelf(book, e.target.value)}>
+              <option value="move" disabled>
                 Move to...
               </option>
               <option
                 value="currentlyReading"
-                disabled={shelf === "currentlyReading"}
+                selected={book.shelf === "currentlyReading"}
               >
                 Currently Reading
               </option>
-              <option value="wantToRead" disabled={shelf === "wantToRead"}>
+              <option value="wantToRead" selected={book.shelf === "wantToRead"}>
                 Want to Read
               </option>
-              <option value="read" disabled={shelf === "read"}>
+              <option value="read" selected={book.shelf === "read"}>
                 Read
               </option>
               <option value="none">None</option>
@@ -61,8 +50,7 @@ class DetailModal extends Component {
           </div>
         </div>
       </div>
-    );
-  }
+    )
 }
 
 export default DetailModal;

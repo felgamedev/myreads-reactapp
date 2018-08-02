@@ -1,18 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Book extends Component {
-  onChangeShelf = e => {
-    console.log("Click!");
-    this.props.onUpdateBook(this.props.book, e.target.value);
-  };
-
-  openDetailPanel = e => {
-    this.props.openDetailPanel(this.props.book);
-  };
-
-  render() {
-    let { book } = this.props;
-    let { shelf } = book;
+const Book = ({book, openDetailPanel, onUpdateBook}) => {
     return (
       <li>
         <div className="book" key={book.id}>
@@ -25,31 +13,31 @@ class Book extends Component {
                 backgroundImage: `url(${book.imageLinks != null &&
                   book.imageLinks.thumbnail})`
               }}
-              onClick={this.openDetailPanel}
+              onClick={(e) => openDetailPanel(book)}
             />
             <div className="book-shelf-changer">
               {/* Only present options that are needed, leave out current shelf */}
-              <select onChange={this.onChangeShelf}>
+              <select onChange={(e) => onUpdateBook(book, e.target.value)}>
                 <option value="move" disabled>
                   Move to...
                 </option>
                 <option
                   value="currentlyReading"
-                  selected={shelf === "currentlyReading"}
+                  selected={book.shelf === "currentlyReading"}
                 >
                   Currently Reading
                 </option>
-                <option value="wantToRead" selected={shelf === "wantToRead"}>
+                <option value="wantToRead" selected={book.shelf === "wantToRead"}>
                   Want to Read
                 </option>
-                <option value="read" selected={shelf === "read"}>
+                <option value="read" selected={book.shelf === "read"}>
                   Read
                 </option>
                 <option value="none">None</option>
               </select>
             </div>
           </div>
-          <div className="book-title" onClick={this.openDetailPanel}>
+          <div className="book-title" onClick={(e) => openDetailPanel(book)}>
             {book.title}
           </div>
           <div className="book-authors">
@@ -57,8 +45,7 @@ class Book extends Component {
           </div>
         </div>
       </li>
-    );
-  }
+    )
 }
 
 export default Book;
