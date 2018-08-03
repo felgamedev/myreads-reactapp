@@ -37,14 +37,10 @@ class BooksApp extends React.Component {
   };
 
   getAllBooks() {
-    BooksAPI.getAll().then(allBooks => this.saveToState(allBooks, "allBooks"));
+    BooksAPI.getAll().then(allBooks => this.saveToState(this.convertToBooksArray(allBooks), "allBooks"));
   }
 
-  saveToState(jsonData, stateVariable) {
-    let array = [];
-    for (let book in jsonData) {
-      array.push(jsonData[book]);
-    }
+  saveToState(array, stateVariable) {
     if (stateVariable === "allBooks") {
       this.setState({
         allBooks: array
@@ -56,10 +52,34 @@ class BooksApp extends React.Component {
     }
   }
 
+  convertToBooksArray(jsonData){
+    let array = [];
+    for (let book in jsonData) {
+      array.push(jsonData[book]);
+    }
+    return array
+  }
+
   searchForBooks(query) {
-    BooksAPI.search(query).then(searchQueryResults =>
-      this.saveToState(searchQueryResults, "searchQuery")
-    );
+    let {allBooks} = this.state
+
+    BooksAPI.search(query)
+    .then(searchQueryResults => {
+      // convert to iterable list
+      let books = this.convertToBooksArray(searchQueryResults)
+
+      let combinedSearchResults = books.map(book => {
+        // Add relevant shelf data to items found in the search results that appear in your library
+        for (let i = 0; i < allBooks.length; i++) {
+          if (book.id === allBooks[i].id) {
+            book.shelf = allBooks[i].shelf;
+          }
+        }
+        return book;
+      });
+      this.saveToState(combinedSearchResults, "searchQuery")
+      return true
+    })
   }
 
   onSearch = query => {
@@ -136,6 +156,7 @@ class BooksApp extends React.Component {
                 onSearch={this.onSearch}
                 onUpdateBook={this.updateBook}
                 openDetailPanel={this.openDetailPanel}
+                allBooks={this.state.allBooks}
               />
               {bookDetail && (
                 <DetailModal
